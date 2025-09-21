@@ -1,0 +1,104 @@
+<!--CSS Mission 2 : Layout Design-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>웹 레이아웃</title>
+    <style>
+      /* style.css */
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background-color: #fff;
+      }
+
+      .container {
+        display: grid;
+        grid-template-areas:
+          "header menu menu"
+          "hero hero hero"
+          "main . image"
+          "main . extra"
+          "banner banner banner";
+        grid-template-columns: 1fr 0.5fr 1fr;
+        grid-template-rows: 100px 200px 200px 200px 100px;
+        gap: 10px;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+
+      /* 각 영역 스타일 */
+      .header {
+        grid-area: header;
+        background-color: #003366;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .menu {
+        grid-area: menu;
+        background-color: #cc0000;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero {
+        grid-area: hero;
+        background-color: #3399ff;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .main {
+        grid-area: main;
+        background-color: #003366;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .image {
+        grid-area: image;
+        background-color: #99cccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .extra {
+        grid-area: extra;
+        background-color: #66cc66;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .banner {
+        grid-area: banner;
+        background-color: #ffcc00;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">HEADER</header>
+      <nav class="menu">MENU</nav>
+      <section class="hero">HERO</section>
+      <main class="main">MAIN</main>
+      <div class="image">IMAGE</div>
+      <aside class="extra">EXTRA</aside>
+      <footer class="banner">BANNER</footer>
+    </div>
+  </body>
+</html>
