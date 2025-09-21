@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMC Project</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      body {
+        background-color: #18171c;
+      }
+      .main-nav {
+        width: 500px;
+        padding: 10px 20px;
+        justify-content: space-between;
+        border-radius: 30px;
+        display: flex;
+        margin: 30px auto;
+      }
+      .main-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+      }
+      .main-nav li {
+        display: inline-block;
+      }
+      .main-nav a {
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        width: 80px;
+        height: 40px;
+        border-radius: 20px;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .main-nav a:hover {
+        background-color: lightgreen;
+        color: gray;
+      }
+      .navbar_toggleBtn {
+        display: none;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+      }
+      @media screen and (max-width: 700px) {
+        .main-nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 200px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .main-nav ul {
+          flex-direction: column;
+          width: 100%;
+          display: none;
+          align-items: center;
+        }
+        .main-nav ul.active {
+          display: flex;
+        }
+        .navbar_toggleBtn {
+          display: block;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Project</a>
+          </li>
+          <li>
+            <a href="#">Member</a>
+          </li>
+          <li>
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+        <a href="#" class="navbar_toggleBtn">
+          <i class="fas fa-bars"></i>
+        </a>
+      </nav>
+    </div>
+    <script>
+      const toggleBtn = document.querySelector(".navbar_toggleBtn");
+      const menu = document.querySelector(".main-nav ul");
+
+      toggleBtn.addEventListener("click", () => {
+        menu.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>

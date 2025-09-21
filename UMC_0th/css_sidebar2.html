@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMC Project</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        background-color: #18171c;
+        color: white;
+        font-family: sans-serif;
+      }
+
+      /* 기본 네비게이션 바 */
+      .main-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        background-color: black;
+        padding: 10px 20px;
+        border-radius: 30px;
+        margin: 20px auto;
+        max-width: 600px;
+      }
+      .main-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 20px;
+        transition: background 0.3s;
+      }
+      .main-nav a:hover {
+        background-color: lightgreen;
+        color: gray;
+      }
+
+      /* 햄버거 버튼 (처음엔 숨김) */
+      .navbar_toggleBtn {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        z-index: 2000;
+      }
+
+      /* 사이드바 */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: black;
+        padding: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1500;
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .close-btn {
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+      .sidebar li {
+        margin: 15px 0;
+      }
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+      }
+      .sidebar a:hover {
+        color: lightgreen;
+      }
+
+      /* 화면이 작아질 때 전환 */
+      @media screen and (max-width: 700px) {
+        .main-nav {
+          display: none; /* 네비바 숨김 */
+        }
+        .navbar_toggleBtn {
+          display: block; /* 햄버거 버튼 표시 */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 네비게이션 바 (PC 화면용) -->
+    <nav class="main-nav">
+      <a href="#">Home</a>
+      <a href="#">Project</a>
+      <a href="#">Member</a>
+      <a href="#">FAQ</a>
+    </nav>
+
+    <!-- 햄버거 버튼 (모바일 화면용) -->
+    <div class="navbar_toggleBtn">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- 사이드바 (모바일 화면용) -->
+    <div class="sidebar" id="sidebar">
+      <span class="close-btn" id="closeBtn">&times;</span>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Project</a></li>
+        <li><a href="#">Member</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+
+    <script>
+      const toggleBtn = document.querySelector(".navbar_toggleBtn");
+      const sidebar = document.getElementById("sidebar");
+      const closeBtn = document.getElementById("closeBtn");
+
+      // 열기
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.add("active");
+      });
+
+      // 닫기
+      closeBtn.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
