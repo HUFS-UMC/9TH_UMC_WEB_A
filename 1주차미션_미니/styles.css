@@ -1,0 +1,128 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  background: #e3efff; /* 연한 파란 계열로 변경 */
+}
+
+.popup-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e3efff;
+}
+
+.todo-popup {
+  width: 340px;
+  background: #f9fafc;
+  border-radius: 16px;
+  box-shadow: 0 3px 15px rgba(80,120,255,0.09);
+  padding: 28px 28px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-popup__title {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 1.35rem;
+  color: #2c3969;
+  letter-spacing: 3px;
+}
+
+.todo-popup__input-row {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.todo-popup__input {
+  flex: 1;
+  font-size: 1rem;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #bed1ff;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.todo-popup__input:focus {
+  border: 1.5px solid #85aaff;
+  background: #f6fbff;
+}
+
+.todo-popup__add-btn {
+  background: #6dc2bf;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.todo-popup__add-btn:hover { background: #37989a; }
+
+.todo-popup__lists {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.todo-popup__col {
+  flex: 1;
+}
+.todo-popup__subtitle {
+  font-size: 1rem;
+  color: #587b99;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.todo-popup__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.todo-popup__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #eef3fa;
+  margin-bottom: 7px;
+  padding: 8px 11px;
+  border-radius: 8px;
+}
+.todo-popup__text {
+  font-size: 1rem;
+  color: #3f4c61;
+}
+.todo-popup__done-btn {
+  background: #67a544;
+  color: #fff;
+  border: none;
+  padding: 3px 11px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.todo-popup__done-btn:hover { background: #3e7032; }
+.todo-popup__delete-btn {
+  background: #ce3b4e;
+  color: #fff;
+  border: none;
+  padding: 3px 11px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.todo-popup__delete-btn:hover { background: #a12639; }
