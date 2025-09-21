@@ -94,9 +94,6 @@ body {
     border-radius: 6px;
     margin-bottom: 6px;
     width: 100%;
-}
-
-.render-container__item {
     flex: 1;
 }
 
