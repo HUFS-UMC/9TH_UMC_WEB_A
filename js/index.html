@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UMC Study Plan</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Noto Sans KR", sans-serif;
+        background: #e9eef5; /* 연한 파란-회색 배경 */
+        margin: 0;
+        padding: 32px 16px;
+        display: flex;
+        justify-content: center;
+      }
+      .app {
+        width: 900px;
+        background: #e9eef5; /* 카드도 같은 톤 */
+        padding: 28px 24px 32px;
+      }
+      h1 {
+        text-align: center;
+        margin: 0 0 20px;
+        font-weight: 700;
+      }
+
+      /* 입력 영역 */
+      .adder {
+        display: flex;
+        border: 1px solid #aab4c3;
+        border-radius: 6px;
+        margin: 0 auto 24px;
+        max-width: 640px;
+        background: white;
+      }
+      .adder input {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        font-size: 15px;
+        outline: none;
+      }
+      .adder button {
+        border: none;
+        background: none;
+        color: #3a7afe;
+        font-weight: 600;
+        padding: 0 16px;
+        cursor: pointer;
+      }
+      .adder button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* 레이아웃 */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        text-align: center;
+      }
+      . .panel h2 {
+        font-size: 15px;
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
+      #일 {
+        text-decoration: underline;
+        text-underline-offset: 6px; /* 글자와 밑줄 사이 간격 */
+        text-decoration-color: skyblue;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #cfd6e0;
+        border-radius: 6px;
+        padding: 8px 12px;
+        background: white;
+      }
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .tag {
+        font-size: 12px;
+        color: #444;
+        background: #f2f4f7;
+        padding: 3px 6px;
+        border-radius: 4px;
+      }
+      .btn {
+        font-size: 12px;
+        border: 1px solid #cfd6e0;
+        border-radius: 4px;
+        background: #f2f4f7;
+        padding: 4px 8px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: #e1e7ef;
+      }
+      .empty {
+        text-align: center;
+        color: #777;
+        font-size: 13px;
+        border: 1px dashed #cfd6e0;
+        border-radius: 6px;
+        padding: 14px;
+        background: #f8f9fb;
+      }
+      #taskInput {
+        border: 2px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app" id="app">
+      <h1>UMC Study Plan</h1>
+
+      <!-- 입력창 -->
+      <form class="adder" id="addForm" autocomplete="off">
+        <input
+          id="taskInput"
+          type="text"
+          placeholder="스터디 계획을 작성해보세요!"
+        />
+        <button id="addBtn" type="submit" disabled>추가</button>
+      </form>
+
+      <!-- 해야 할 일 / 해낸 일 -->
+      <section class="grid">
+        <section class="panel">
+          <h2 id="일">해야 할 일</h2>
+          <ul id="todoList"></ul>
+          <div class="empty" id="todoEmpty" hidden>할 일이 비어 있어요.</div>
+        </section>
+
+        <section class="panel">
+          <h2 id="일">해낸 일</h2>
+          <ul id="doneList"></ul>
+          <div class="empty" id="doneEmpty" hidden>
+            아직 완료한 항목이 없어요.
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const STORAGE_KEY = "umc-study-plan-v1";
+      const state = { todo: [], done: [] };
+
+      const load = () => {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        try {
+          const data = JSON.parse(raw);
+          if (Array.isArray(data.todo)) state.todo = data.todo;
+          if (Array.isArray(data.done)) state.done = data.done;
+        } catch {}
+      };
+      const save = () =>
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+      const addForm = document.getElementById("addForm");
+      const taskInput = document.getElementById("taskInput");
+      const addBtn = document.getElementById("addBtn");
+      const todoList = document.getElementById("todoList");
+      const doneList = document.getElementById("doneList");
+      const todoEmpty = document.getElementById("todoEmpty");
+      const doneEmpty = document.getElementById("doneEmpty");
+
+      function render() {
+        todoEmpty.hidden = state.todo.length !== 0;
+        doneEmpty.hidden = state.done.length !== 0;
+
+        todoList.innerHTML = "";
+        state.todo.forEach((name, idx) => {
+          const li = document.createElement("li");
+          const left = document.createElement("div");
+          left.className = "left";
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = ["HTML", "CSS", "JS", "리액트"].includes(name)
+            ? "기본"
+            : "사용자";
+          const label = document.createElement("div");
+          label.textContent = name;
+          left.append(tag, label);
+
+          const okBtn = document.createElement("button");
+          okBtn.className = "btn";
+          okBtn.textContent = "완료";
+          okBtn.dataset.idx = idx;
+
+          li.append(left, okBtn);
+          todoList.appendChild(li);
+        });
+
+        doneList.innerHTML = "";
+        state.done.forEach((item, idx) => {
+          const li = document.createElement("li");
+          const left = document.createElement("div");
+          left.className = "left";
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = `${item.week}주차`;
+          const label = document.createElement("div");
+          label.textContent = item.name;
+          left.append(tag, label);
+
+          const delBtn = document.createElement("button");
+          delBtn.className = "btn";
+          delBtn.textContent = "삭제";
+          delBtn.dataset.idx = idx;
+
+          li.append(left, delBtn);
+          doneList.appendChild(li);
+        });
+      }
+
+      function addTask(name) {
+        const trimmed = name.trim();
+        if (!trimmed) return;
+        state.todo.push(trimmed);
+        save();
+        render();
+      }
+      function completeTask(idx) {
+        const name = state.todo[idx];
+        if (!name) return;
+        state.todo.splice(idx, 1);
+        state.done.push({ name, week: state.done.length + 1 });
+        save();
+        render();
+      }
+      function deleteDone(idx) {
+        state.done.splice(idx, 1);
+        state.done.forEach((it, i) => (it.week = i + 1));
+        save();
+        render();
+      }
+
+      addForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        addTask(taskInput.value);
+        taskInput.value = "";
+        addBtn.disabled = true;
+      });
+      taskInput.addEventListener(
+        "input",
+        () => (addBtn.disabled = taskInput.value.trim().length === 0)
+      );
+      todoList.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        completeTask(Number(btn.dataset.idx));
+      });
+      doneList.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        deleteDone(Number(btn.dataset.idx));
+      });
+
+      load();
+      if (state.todo.length === 0 && state.done.length === 0) {
+        state.todo = ["HTML", "CSS", "JS", "리액트"];
+        save();
+      }
+      render();
+    </script>
+  </body>
+</html>
