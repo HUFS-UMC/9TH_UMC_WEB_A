@@ -13,7 +13,7 @@ interface ListProps {
 const List = (props: ListProps) => {
   return (
     <li style={{ listStyle: "none" }}>
-      {props.tech === "REACT" ? "리액트" : props.tech}
+      {props.tech === "REACT" ? "리액트!" : props.tech}
     </li>
   );
 };
