@@ -1,5 +1,5 @@
-import ContextPage from "./useContext/Contextpage";
 import "./App.css";
+import ContextPage from "./useContext/ContextPage";
 
 function App() {
   return (

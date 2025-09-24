@@ -1,24 +1,23 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import ThemeContent from "../ThemeContent";
 
 export enum THEME {
   LIGHT = "LIGHT",
   DARK = "DARK",
 }
 
-type TTheme = Theme.LIGHT | Theme.DARK;
+type TTheme = THEME.LIGHT | THEME.DARK;
 
 interface IThemeContext {
   theme: TTheme;
   toggleTheme: () => void;
 }
 
-export const ThemeContent = createContext<IThemeContext | undefined>(undefined);
+export const ThemeContext = createContext<IThemeContext | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<TTheme>(THEME.LIGHT);
 
-  const toggleTheme = (): void => {
+  const toggleTheme = () => {
     setTheme(
       (prevTheme): THEME =>
         prevTheme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT
@@ -26,14 +25,14 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <ThemeContent.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
-    </ThemeContent.Provider>
+    </ThemeContext.Provider>
   );
 };
 
-export const useTheme = (): IThemeContext => {
-  const context = useContext(ThemeContent);
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
 
   if (!context) {
     throw new Error("useTheme must be used withn a ThemeProvider");
