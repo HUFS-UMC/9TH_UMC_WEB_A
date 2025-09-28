@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <nav
       className={clsx(
-        "w-full p-4 w-full flex justify-end",
+        "w-full p-4 flex justify-end",
         isLightMode ? "bg-white" : "bg-gray-800"
       )}
     >
