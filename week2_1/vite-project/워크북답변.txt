@@ -1,0 +1,29 @@
+
+props-drilling이 발생하는 구체적인 부분 작성
+
+Props-drilling이란, 상위 컴포넌트의 상태를 하위 컴포넌트에서 사용하기 위해 중간에 위치한 여러 컴포넌트를 거쳐 props를 계속해서 전달해주는 현상을 말합니다. 현재 코드에서 props-drilling은 다음과 같은 부분에서 발생하고 있습니다.
+
+1. App 컴포넌트는 TodoList 컴포넌트에 todos 상태와 handleCompleteTask 함수를 직접 전달합니다.
+
+2. App 컴포넌트는 DoneList 컴포넌트에 doneTasks 상태와 handleDeleteTask 함수를 직접 전달합니다.
+
+3. App 컴포넌트는 TodoForm 컴포넌트에 todoInput, setTodoInput 상태와 handleFormSubmit 함수를 직접 전달합니다.
+
+
+props-drilling 문제를 해결한 방법
+
+Context API를 사용하기 전:
+
+최상위 컴포넌트인 **App**이 모든 상태를 소유하고 있었습니다.
+
+TodoList, DoneList, TodoForm과 같은 하위 컴포넌트들은 부모로부터 props를 통해서만 상태와 함수에 접근할 수 있었습니다.
+
+컴포넌트 계층이 깊어질수록 props를 계속해서 전달해야 하는 props-drilling 현상이 발생했습니다.
+
+Context API를 사용한 후:
+
+TodoProvider 컴포넌트가 모든 상태를 관리하는 전역 저장소 역할을 합니다.
+
+useTodoContext라는 커스텀 훅을 통해 TodoProvider 내부에 있는 어떤 컴포넌트든 props 없이 필요한 상태와 함수에 직접 접근할 수 있게 되었습니다.
+
+이로써 컴포넌트 간의 불필요한 props 전달이 사라지고, 코드의 가독성과 유지보수성이 크게 향상되었습니다.
