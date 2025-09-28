@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.complete-button {
+  background-color: #28a745;
+  border: none;
+}

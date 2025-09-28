@@ -31,7 +31,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     event.preventDefault();
     const text = todoInput.trim();
     if (text) {
-      setTodos([...todos, { id: Date.now(), text }]);
+      setTodos((prev) => [...prev, { id: Date.now(), text }]);
       setTodoInput('');
     }
   };
