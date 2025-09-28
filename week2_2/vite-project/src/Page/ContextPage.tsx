@@ -1,6 +1,5 @@
 import NavBar from "./NavBar";
 import ThemeContent from "./ThemeContent";
-import { useState } from "react";
 import { ThemeProvider } from "../context/ThemeProvider";
 
 export default function ContextPage() : Element {

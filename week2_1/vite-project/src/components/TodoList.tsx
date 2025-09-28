@@ -11,8 +11,7 @@ const TodoList = () => {
           <li key={task.id} className="render-container__item">
             <span className="render-container__item-text">{task.text}</span>
             <button
-              className="render-container__item-button"
-              style={{ backgroundColor: '#28a745' }}
+              className="render-container__item-button complete-button"
               onClick={() => handleCompleteTask(task)}
             >
               완료

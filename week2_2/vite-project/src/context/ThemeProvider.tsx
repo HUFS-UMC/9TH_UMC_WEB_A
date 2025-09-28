@@ -1,5 +1,6 @@
 import {createContext, type PropsWithChildren, useContext, useState} from "react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export enum THEME {
     LIGHT = 'LIGHT',
     DARK = 'DARK',
@@ -29,6 +30,7 @@ export const ThemeProvider = ({children}: PropsWithChildren) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () : IThemeContext=> {
     const context = useContext(ThemeContext);
     if (!context) {
