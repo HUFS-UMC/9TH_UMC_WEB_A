@@ -1,8 +1,0 @@
-# Node modules
-node_modules/
-
-# 빌드 결과물
-build/
-
-# 환경 변수
-.env
