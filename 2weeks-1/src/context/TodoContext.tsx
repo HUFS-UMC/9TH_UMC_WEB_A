@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type PropsWithChildren } from "react";
+import { createContext, useContext, useState, useCallback, type PropsWithChildren } from "react";
 
 export type Task = { id: number; text: string; done: boolean };
 
@@ -14,17 +14,25 @@ const Ctx = createContext<TodoCtx | undefined>(undefined);
 export function TodoProvider({ children }: PropsWithChildren) {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const add = (text: string) => {
+  const add = useCallback((text: string) => {
     const t = text.trim();
     if (!t) return;
     setTasks(prev => [...prev, { id: Date.now(), text: t, done: false }]);
-  };
-  const complete = (id: number) => {
-    setTasks(prev => prev.map(it => (it.id === id ? { ...it, done: true } : it)));
-  };
-  const remove = (id: number) => setTasks(prev => prev.filter(it => it.id !== id));
+  }, []);
 
-  return <Ctx.Provider value={{ tasks, add, complete, remove }}>{children}</Ctx.Provider>;
+  const complete = useCallback((id: number) => {
+    setTasks(prev => prev.map(it => (it.id === id ? { ...it, done: true } : it)));
+  }, []);
+
+  const remove = useCallback((id: number) => {
+    setTasks(prev => prev.filter(it => it.id !== id));
+  }, []);
+
+  return (
+    <Ctx.Provider value={{ tasks, add, complete, remove }}>
+      {children}
+    </Ctx.Provider>
+  );
 }
 
 export function useTodos() {
