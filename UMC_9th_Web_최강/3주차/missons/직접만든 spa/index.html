@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라우터 없이 만드는 SPA</title>
+    <style>
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+    </style>    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+      <button onclick="navigate('home')">Home</button>
+      <button onclick="navigate('about')">About</button>
+      <button onclick="navigate('contact')">Contact</button>
+    </nav>
+    <main>
+      <div id="home" class="page active">
+        <h1>여기는 홈화면 입니다</h1>
+      </div>
+      <div id="about" class="page">
+        <h1>이 앱은 라우터 없이 만든 spa입니다</h1>
+      </div>
+      <div id="contact" class="page">
+        <h1>연락처는 010-xxxx-xxxx</h1>
+      </div>
+    </main>
+</body>
+<script>
+  function navigate(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.remove('active')
+    })
+    document.getElementById(pageId).classList.add('active')
+  }
+</script>
+</html>
