@@ -1,0 +1,22 @@
+/* ===== 기본 스타일 ===== */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #eef2f3;
+  margin: 0;
+}
+
+/* ===== Todo 컨테이너 ===== */
+.todo-container {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+}
+
+/* ... 나머지 코드 전부 붙여넣기 ... */
