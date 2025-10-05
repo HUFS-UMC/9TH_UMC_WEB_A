@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+
+    /* Output & Language */
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "noEmit": true,
+
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "bundler",           // ✅ 소문자
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+
+    /* JSX (React) */
+    "jsx": "react-jsx",
+
+    /* Types */
+    "types": ["vite/client"],                // ✅ 깔끔하게
+
+    /* Strictness & Lint-ish options */
+    "strict": true,
+    "useDefineForClassFields": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // 개발 중엔 필요시 끄기(선택)
+    // "noUnusedLocals": false,
+    // "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true
+
+    /* ⚠️ 문제 유발 옵션 제거
+    "erasableSyntaxOnly": true,
+    "noUncheckedSideEffectImports": true
+    */
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"]
+}
