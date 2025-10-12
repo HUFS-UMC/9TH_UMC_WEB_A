@@ -3,7 +3,7 @@ import useForm from "../hooks/useForm"
 import { validateSignin, type UserSigninInformation } from "../utils/validate";
 
 const LoginPage = () => {
-    const {} = useForm<UserSigninInformation>({
+    const {values, errors, touched, getInputProps} = useForm<UserSigninInformation>({
         initialValue: {
             email: "",
             password: "",
