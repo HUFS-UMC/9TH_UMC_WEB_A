@@ -17,17 +17,22 @@ export default function useCustomFetch<T>(
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 불필요한 렌더링/의존성 비교를 줄이기 위해 config를 memoize
-  const memoConfig = useMemo(() => 
-    {
-      return {
-        url: config.url,
-        params: config.params,
-        headers: config.headers,
-        method: config.method ?? "GET",
-        data: config.data,
-      }; 
-    }, [JSON.stringify({url: config.url, params: config.params, headers: config.headers, method: config.method, data: config.data})]);
+  const memoConfig = useMemo(() => ({
+    url: config.url,
+    params: config.params,
+    headers: config.headers,
+    method: config.method ?? "GET",
+    data: config.data,
+  }), [
+    JSON.stringify({
+      url: config.url,
+      params: config.params,
+      headers: config.headers,
+      method: config.method,
+      data: config.data,
+    }),
+  ]);
+
   const abortRef = useRef<AbortController | null>(null);
 
   const fetchData = async () => {
@@ -46,8 +51,20 @@ export default function useCustomFetch<T>(
       setData(res.data);
     } catch (err) {
       if (axios.isCancel(err)) return;
-      const e = err as AxiosError;
-      setError(e.response?.statusText || e.message || "요청 중 오류가 발생했습니다.");
+      const e = err as AxiosError<any>;
+
+      const status = e.response?.status;
+      const serverMessage =
+        (e.response?.data && (e.response.data.message || e.response.data.error)) ??
+        e.response?.statusText;
+      const defaultMessage = e.message || "요청 중 오류가 발생했습니다.";
+
+      // 에러 메시지를 좀 더 구체적으로 구성
+      const errorMessage = status
+        ? `[${status}] ${serverMessage || defaultMessage}`
+        : defaultMessage;
+
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
