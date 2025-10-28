@@ -10,7 +10,7 @@
 
     /* Modules */
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",           // ✅ 소문자
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "allowImportingTsExtensions": true,
@@ -19,20 +19,23 @@
     "jsx": "react-jsx",
 
     /* Types */
-    "types": ["vite/client", "react", "react-dom"],
+    "types": ["vite/client"],                // ✅ 깔끔하게
 
-    /* Strictness & Linty options */
+    /* Strictness & Lint-ish options */
     "strict": true,
     "useDefineForClassFields": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
 
-    /* 최신 TS 옵션(있으면 유지, 없어도 무방) */
+    // 개발 중엔 필요시 끄기(선택)
+    // "noUnusedLocals": false,
+    // "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true
+
+    /* ⚠️ 문제 유발 옵션 제거
     "erasableSyntaxOnly": true,
     "noUncheckedSideEffectImports": true
+    */
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

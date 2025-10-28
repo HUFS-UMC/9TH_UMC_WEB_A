@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios"; // ✅ axios import
+import axios from "axios"; // 
 import type { Movie } from "../types/movie"; // 확장자 생략 가능
 import MovieCard from "../components/MovieCard";
 
@@ -20,9 +20,7 @@ export default function MoviePage() {
   useEffect((): void => {
     // data를 불러 와보겠습니다.
     const fetchMovies = async (): Promise<void> => {
-      // const response = await fetch( ❌ → axios 사용
       const { data } = await axios.get<TMDBResponse>(
-        // 영상에서는 fetch 가 아니라 axios다.
         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", // page-2면 2번 패이지에 대한정보/ en-US>ko-KR로 바꾸면 한국어데 맞춰서
         {
           headers: {
@@ -35,9 +33,9 @@ export default function MoviePage() {
         // Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}` 이런식으로 http헤더 안에 넣어야한다.
       );
 
-      // const result: TMDBResponse = await response.json(); ❌ 필요 없음
+      
       console.log(data); // 결과 구조 확인용
-      setMovies(data.results ?? []); // ✅ 여기서 상태에 넣어야 화면에 보임!
+      setMovies(data.results ?? []); 
     };
 
     fetchMovies();

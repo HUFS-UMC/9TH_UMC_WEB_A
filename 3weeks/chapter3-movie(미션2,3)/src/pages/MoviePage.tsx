@@ -87,7 +87,7 @@ export default function MoviePage() {
 
       {isPending && ( //isPending이 true일 때만 실행됨. (즉, API 요청이 진행 중일 때)
         <div className="flex items-center justify-center h-screen h-dvh">
-          <LoadingSpinner /> //스피너 동작
+          <LoadingSpinner />
         </div>
       )}
 
