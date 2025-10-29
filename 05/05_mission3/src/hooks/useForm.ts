@@ -21,7 +21,6 @@ function useForm<T>({ initialValue, validate }: UseFormProps<T>) {
     });
   };
 
-  // 입력창에서 나왔을 때
   const handleBlur = (name: keyof T) => {
     setTouched({
       ...touched,
