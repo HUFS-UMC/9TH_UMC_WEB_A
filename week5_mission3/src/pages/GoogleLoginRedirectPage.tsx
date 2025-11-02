@@ -14,7 +14,7 @@ const GoogleLoginRedirectPage = () => {
         if(accessToken){
             setAccessToken(accessToken);
             setRefreshToken(refreshToken);
-            window.location.href = '/my';
+            window.location.replace('/my')
         }
 
         //urlParams는 4개의 query parameter인 id, name, access, refresh를 의미
