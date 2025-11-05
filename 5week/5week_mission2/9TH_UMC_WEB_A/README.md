@@ -1,2 +1,0 @@
-# 9TH_UMC_WEB_A
-UMC 9기 WEB_A
