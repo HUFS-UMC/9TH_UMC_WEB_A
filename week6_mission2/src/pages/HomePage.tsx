@@ -1,0 +1,48 @@
+// ...existing code...
+import { useEffect, useState } from "react";
+// import useGetLpList from "../hooks/queires/useGetLpList";
+import useGetInfiniteLpList from "../hooks/queries/useGetInfiniteLpList";
+import { PAGINATION_ORDER } from "../enums/common";
+import { useInView } from "react-intersection-observer";
+import LpCard from "../components/LpCard/LpCard";
+import LpCardSkeletonList from "../components/LpCard/LpCardSkeletonList";
+
+const HomePage = () => {
+    const [search, setSearch] = useState("");
+    const { data, isFetching, hasNextPage, isPending, fetchNextPage, isError } =
+        useGetInfiniteLpList(10, search, PAGINATION_ORDER.asc);
+
+    //ref : 특정 DOM 요소를 관찰할 수 있게 하는 도구
+    //inView : 해당 요소가 화면에 보이면 true, 아니면 false
+    const { ref, inView } = useInView({
+        threshold: 0, //요소가 화면에 살짝만 보여도 true
+    });
+
+    useEffect(() => {
+        if (inView) {
+            !isFetching && hasNextPage && fetchNextPage();
+        }
+    }, [inView, hasNextPage, fetchNextPage, isFetching]);
+
+    if (isError) {
+        return <div className={"mt-20"}>Error.</div>;
+    }
+
+    return (
+        <div className="container mx-auto px-4 py-6">
+            <input value={search} onChange={(e) => setSearch(e.target.value)} />
+            <div className={"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6"}>
+                {isPending && <LpCardSkeletonList count={20} />}
+                {data?.pages
+                    ?.map((page) => page.data?.data ?? [])
+                    .flat()
+                    .map((lp: any) => <LpCard key={lp.id} lp={lp} />)}
+                {isFetching && <LpCardSkeletonList count={20} />}
+            </div>
+            <div ref={ref} className="h-2"></div>
+        </div>
+    );
+};
+
+export default HomePage;
+// ...existing code...
