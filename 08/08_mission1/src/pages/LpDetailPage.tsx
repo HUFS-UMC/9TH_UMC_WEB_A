@@ -28,7 +28,6 @@ const LpDetailPage = () => {
     likeMutate({ lpId: Number(lpId) });
   };
 
-  // 좋아요 취소 핸들러
   const handleDislikeLp = () => {
     disLikeMutate({ lpId: Number(lpId) });
   };
