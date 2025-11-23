@@ -6,7 +6,7 @@ import {useRef,useState,useEffect }from "react";
 function useThrottle<T>(value:T,delay:number=500):T{
     //1.상태변수:throttledValue:최종적으로 쓰로틀링 적용된값 젖아.
     //초기값을 전달받은 value
-    const[throttledValue:T,setThrottledValue] = useState<T>(value);
+    const[throttledValue,setThrottledValue] = useState<T>(value);
 
     //2.Ref lastExecuted:마지막으로 실행된 시간을 기록하는 변수
     //useRef사용하면 컴포넌트가 리런더링 되어도 값이 유지되고, 변경되어도 리렌더링을 트리거 하지 않아요.
@@ -38,11 +38,9 @@ setThrottledValue(value);
 //기존 타이머를 cleartimeout을 통해 취소하여 중복 업데이트를 방지합니다.
 return () => clearTimeout(timerId);
 }
+},[value,delay]);
 
-
-},[]
-
-);
-
-
+return throttledValue
 }
+
+export default useThrottle;

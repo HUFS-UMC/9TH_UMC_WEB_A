@@ -15,6 +15,8 @@ function useDebounced<T>(value: T, delay: number) {
     return () => clearTimeout(handler);
   }, [value, delay]);
 
+
+  //최종적으로 '잠시 기다린 후의'값을 반환합니다.
   return debouncedValue;
 }
 

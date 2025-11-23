@@ -12,6 +12,8 @@ const ThrottlePage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+//   console.log("리레더링");
+
   return (
     <div className="h-dvh flex flex-col items-center justify-center">
       <div>
