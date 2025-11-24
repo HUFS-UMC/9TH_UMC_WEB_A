@@ -7,6 +7,7 @@ function useDebounce<T>(value: T, delay: number) {
   useEffect(() => {
     // delay (ms) 후에 실행합니다.
     // delay 시간 후에 value를 debouncedValue로 업데이트하는 타이머를 시작합니다.
+    // 값 변경 -> delay 만큼 기다림 -> 변화가 없으면 최종 업데이트
     const handler = setTimeout(() => setDebouncedValue(value), delay);
 
     // value가 변경되면, 기존 타이머를 지워서 업데이트를 취소합니다.

@@ -23,6 +23,7 @@ const HomePage = () => {
     fetchNextPage,
     isError,
   } = useGetInfiniteLpList(10, debouncedValue, PAGINATION_ORDER.asc);
+  // debounce 적용 이전엔 search 였음
 
   const { ref, inView } = useInView({
     threshold: 0,
