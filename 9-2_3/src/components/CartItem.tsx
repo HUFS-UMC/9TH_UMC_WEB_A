@@ -9,16 +9,14 @@ const CartItem = ({ lp }: CartItemProps) => {
   const { increase, decrease, removeItem } = useCartActions();
 
   const handleIncreaseCount = () => {
-    increase(lp.id); // 🔥 수정 완료
-  };
+    increase(lp.id); 
 
   const handleDecreaseCount = () => {
     if (lp.amount === 1) {
-      removeItem(lp.id); // 🔥 수정 완료
+      removeItem(lp.id); 
       return;
     }
-    decrease(lp.id); // 🔥 수정 완료
-  };
+    decrease(lp.id); 
 
   return (
     <div className="flex items-center p-4 border-b border-gray-200">

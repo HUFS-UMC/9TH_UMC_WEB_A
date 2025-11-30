@@ -7,15 +7,14 @@ const Modal = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.modal.isOpen);
 
-  if (!isOpen) return null; // ⭐ 모달이 열릴 때만 렌더링
-
+  if (!isOpen) return null;
   const handleConfirm = () => {
-    dispatch(clearCart()); // 장바구니 전체 삭제
-    dispatch(closeModal()); // 모달 닫기
+    dispatch(clearCart());
+    dispatch(closeModal());
   };
 
   const handleCancel = () => {
-    dispatch(closeModal()); // 모달 닫기
+    dispatch(closeModal());
   };
 
   return (
