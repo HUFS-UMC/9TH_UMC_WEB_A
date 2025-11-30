@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-function useTrottle<T>(value: T, delay = 500): T {
+function useTrottle<T>(value: T, delay = 200): T {
     //1.상태변수: throttleValue : 최종적으로 쓰로틀링 적용된 값 
     //초기값을 전달받은 value 전달받은 value를 이런 형태를 통해서 다룬다
     const[throttleValue, setThrottleValue] = useState<T>(value);
