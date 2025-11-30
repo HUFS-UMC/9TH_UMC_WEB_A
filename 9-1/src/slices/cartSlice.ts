@@ -1,0 +1,75 @@
+import type { CartItems } from "../types/cart";
+import cartItems from "./../constants/cartItems";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+
+export interface CartState {
+  cartItems: CartItems;
+  amount: number;
+  total: number;
+}
+
+const initialState: CartState = {
+  cartItems: cartItems,
+  amount: 0,
+  total: 0,
+};
+
+//cartslice생성:createslice를 통해서 생성을하는데 이걸 reduxTookit에서 제공 해준다.
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    //Todo 증가
+    increase: (state, action: PayloadAction<{ id: string }>) => {
+      const itemId = action.payload.id;
+      //이 아이디를 통해서, 전체 음반 중에 내가 클릭한 음반을 찾기
+      const item = state.cartItems.find((cartItem) => cartItem.id === itemId);
+
+      if (item) {
+        item.amount += 1;
+      }
+    },
+    //TODO감소
+    decrease: (state, action: PayloadAction<{ id: string }>) => {
+      const itemId = action.payload.id;
+      //이 아이디를 통해서, 전체 음반 중에 내가 클릭한 음반을 찾기
+      const item = state.cartItems.find((cartItem) => cartItem.id === itemId);
+
+      if (item) {
+        item.amount -= 1;
+      }
+    },
+    //Todo removeitem아이템 제거(1에서 - 눌러서 0이 보일 필요 없음->장바구니 목록에서 노래 삭제)
+    removeItem: (state, action: PayloadAction<{ id: string }>) => {
+      const itemId = action.payload.id;
+      state.cartItems = state.cartItems.filter(
+        (cartItem) => cartItem.id !== itemId
+      );
+    },
+    //todo clearcart 장바구니 비우기(장바구니 전체 비우기)
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
+    //todo 총액 계산
+    calculateTotals: (state) => {
+      let amount = 0;
+      let total = 0;
+      state.cartItems.forEach((item) => {
+        amount += item.amount;
+        total += item.amount * Number(item.price);
+      });
+
+      state.amount = amount;
+      state.total = total;
+    },
+  },
+});
+
+export const { increase, decrease, removeItem, clearCart, calculateTotals } =
+  cartSlice.actions;
+
+//duck patter reduver는 export default로 내보내야 함.
+const cartReducer = cartSlice.reducer;
+
+export default cartReducer;
